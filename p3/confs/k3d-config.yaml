@@ -1,0 +1,26 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: cluster-p3
+servers: 1
+agents: 1
+ports:
+  - port: 8888:80
+    nodeFilters:
+      - loadbalancer
+files:
+  - source: ./k8s/namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/namespace.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/deployment.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/deployment.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/service.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/service.yaml
+    nodeFilters:
+      - "server:*"
+options:
+  k3d:
+    wait: true
