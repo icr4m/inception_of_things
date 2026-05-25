@@ -5,9 +5,8 @@ metadata:
 servers: 1
 agents: 1
 ports:
-  - port: 80:80
-    nodeFilters:
-      - loadbalancer
+  - port: 8080:8080
+  - port: 8081:8081
 files:
   - source: ./k8s/namespace.yaml
     destination: /var/lib/rancher/k3s/server/manifests/namespace.yaml
