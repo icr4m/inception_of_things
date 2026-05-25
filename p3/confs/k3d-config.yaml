@@ -28,3 +28,8 @@ files:
 options:
   k3d:
     wait: true
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - "server:*"
