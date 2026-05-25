@@ -5,7 +5,7 @@ metadata:
 servers: 1
 agents: 1
 ports:
-  - port: 8888:80
+  - port: 80:80
     nodeFilters:
       - loadbalancer
 files:
@@ -19,6 +19,10 @@ files:
       - "server:*"
   - source: ./k8s/service.yaml
     destination: /var/lib/rancher/k3s/server/manifests/service.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd-helmchart.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd-helmchart.yaml
     nodeFilters:
       - "server:*"
 options:
