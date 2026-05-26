@@ -8,20 +8,24 @@ ports:
   - port: 8080:8080
   - port: 8081:8081
 files:
-  - source: ./k8s/namespace.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/namespace.yaml
+  - source: ./k8s/app/namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/app/namespace.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/deployment.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/deployment.yaml
+  - source: ./k8s/app/deployment.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/app/deployment.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/service.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/service.yaml
+  - source: ./k8s/app/service.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/app/service.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/argocd-helmchart.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/argocd-helmchart.yaml
+  - source: ./k8s/argocd/argocd-helmchart.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-helmchart.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-app.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-app.yaml
     nodeFilters:
       - "server:*"
 options:
