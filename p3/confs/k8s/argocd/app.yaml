@@ -12,3 +12,6 @@ spec:
     repoURL: https://github.com/icr4m/inception_of_things
     targetRevision: p3
     path: p3/confs/k8s/app
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
