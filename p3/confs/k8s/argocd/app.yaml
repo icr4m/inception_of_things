@@ -10,5 +10,5 @@ spec:
   project: default
   source:
     repoURL: https://github.com/icr4m/inception_of_things
-    targetRevision: main
+    targetRevision: p3
     path: p3/confs/k8s/app
