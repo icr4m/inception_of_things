@@ -5,8 +5,12 @@ metadata:
 servers: 1
 agents: 1
 ports:
-  - port: 8080:8080
+  - port: 8080:30080
+    nodeFilters:
+      - loadbalancer
   - port: 8081:8081
+    nodeFilters:
+      - loadbalancer
 files:
   - source: ./k8s/argocd/app.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/app.yaml
