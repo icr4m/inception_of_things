@@ -8,3 +8,7 @@ spec:
   chart: argo-cd
   targetNamespace: argocd
   createNamespace: true
+  valuesContent: |-
+    configs:
+      cm:
+        timeout.reconciliation: 5s
