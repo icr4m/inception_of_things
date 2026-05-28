@@ -11,4 +11,4 @@ spec:
   valuesContent: |-
     configs:
       cm:
-        timeout.reconciliation: 5s
+        timeout.reconciliation: 3s
