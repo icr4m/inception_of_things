@@ -17,3 +17,5 @@ spec:
       - CreateNamespace=true
     automated:
       enabled: true
+data:
+  timeout.reconciliation: 5s
