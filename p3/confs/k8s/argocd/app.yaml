@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/icr4m/inception_of_things
+    repoURL: https://github.com/Anicet78/agruet_IoT
     targetRevision: main
     path: p3/confs/k8s/app
   syncPolicy:
