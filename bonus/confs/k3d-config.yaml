@@ -1,7 +1,7 @@
 apiVersion: k3d.io/v1alpha5
 kind: Simple
 metadata:
-  name: cluster-p3
+  name: cluster-bonus
 servers: 1
 agents: 1
 ports:
@@ -12,24 +12,44 @@ ports:
     nodeFilters:
       - loadbalancer
 files:
-  - source: ./k8s/argocd/app.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/argocd/app.yaml
+  - source: ./k8s/argocd/argocd-app.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-app.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/argocd/helmchart.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/argocd/helmchart.yaml
+  - source: ./k8s/argocd/argocd-helmchart.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-helmchart.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/argocd/namespace.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/argocd/namespace.yaml
+  - source: ./k8s/argocd/argocd-namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-namespace.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/argocd/service.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/argocd/service.yaml
+  - source: ./k8s/argocd/argocd-service.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-service.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/gitlab/namespace.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/gitlab/namespace.yaml
+  - source: ./k8s/gitlab/gitlab-namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/gitlab/gitlab-namespace.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/postgres/db-configmap.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-configmap.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/postgres/db-deployment.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-deployment.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/postgres/db-persistent-volume.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-persistent-volume.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/postgres/db-service.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-service.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/postgres/db-volume-claim.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-volume-claim.yaml
     nodeFilters:
       - "server:*"
 options:

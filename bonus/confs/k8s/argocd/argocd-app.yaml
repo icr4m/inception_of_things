@@ -11,7 +11,7 @@ spec:
   source:
     repoURL: https://github.com/Anicet78/agruet_IoT
     targetRevision: main
-    path: p3/confs/k8s/app
+    path: bonus/confs/k8s/app
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

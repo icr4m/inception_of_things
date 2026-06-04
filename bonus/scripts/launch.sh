@@ -1,1 +1,1 @@
-k3d cluster create --config p3/confs/k3d-config.yaml
+k3d cluster create --config bonus/confs/k3d-config.yaml
