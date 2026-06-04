@@ -1,0 +1,42 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: cluster-p3
+servers: 1
+agents: 1
+ports:
+  - port: 8888:30080
+    nodeFilters:
+      - loadbalancer
+  - port: 8081:8081
+    nodeFilters:
+      - loadbalancer
+files:
+  - source: ./k8s/argocd/app.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/app.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/helmchart.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/helmchart.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/namespace.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/service.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/service.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/gitlab/namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/gitlab/namespace.yaml
+    nodeFilters:
+      - "server:*"
+options:
+  k3d:
+    wait: true
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - "server:*"
