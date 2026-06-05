@@ -24,32 +24,24 @@ files:
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-namespace.yaml
     nodeFilters:
       - "server:*"
+  - source: ./k8s/argocd/argocd-postgres.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-postgres.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-redis.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-redis.yaml
+    nodeFilters:
+      - "server:*"
   - source: ./k8s/argocd/argocd-service.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-service.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/gitlab/gitlab-namespace.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/gitlab/gitlab-namespace.yaml
+  - source: ./k8s/postgres/postgres-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/postgres-secret.yaml
     nodeFilters:
       - "server:*"
-  - source: ./k8s/postgres/db-configmap.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-configmap.yaml
-    nodeFilters:
-      - "server:*"
-  - source: ./k8s/postgres/db-deployment.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-deployment.yaml
-    nodeFilters:
-      - "server:*"
-  - source: ./k8s/postgres/db-persistent-volume.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-persistent-volume.yaml
-    nodeFilters:
-      - "server:*"
-  - source: ./k8s/postgres/db-service.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-service.yaml
-    nodeFilters:
-      - "server:*"
-  - source: ./k8s/postgres/db-volume-claim.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/postgres/db-volume-claim.yaml
+  - source: ./k8s/redis/redis-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/redis/redis-secret.yaml
     nodeFilters:
       - "server:*"
 options:
