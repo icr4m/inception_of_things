@@ -1,0 +1,56 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.gitlab.io/
+    chart: gitlab
+    targetRevision: "*"
+    helm:
+      values: |
+        global:
+          hosts:
+            domain: example.com
+          ingress:
+            configureCertmanager: false
+          psql:
+            host: postgres.example.com
+            port: 5432
+            database: gitlabhq_production
+            username: gitlab
+            password:
+              secret: postgres-auth
+              key: user-password
+          redis:
+            host: redis.example.com
+            port: 6379
+            auth:
+              enabled: true
+              secret: redis-auth
+              key: redis-password
+          object_store:
+            enabled: true
+            proxy_download: true
+            connection:
+              secret: gitlab-object-storage
+              key: connection
+        certmanager:
+          enabled: false
+        certmanager-issuer:
+          email: admin@example.com
+        prometheus:
+          enabled: false
+        gitlab-runner:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitlab
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

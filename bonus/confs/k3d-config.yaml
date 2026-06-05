@@ -16,6 +16,10 @@ files:
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-app.yaml
     nodeFilters:
       - "server:*"
+  - source: ./k8s/argocd/argocd-gitlab.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-gitlab.yaml
+    nodeFilters:
+      - "server:*"
   - source: ./k8s/argocd/argocd-helmchart.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-helmchart.yaml
     nodeFilters:
