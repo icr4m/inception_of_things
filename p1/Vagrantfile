@@ -21,7 +21,7 @@ Vagrant.configure("2") do |config|
       vb.linked_clone = true
     end
 
-    server.vm.provision "shell", path: "scritps/script.sh", args: ["server", SERVER_IP, K3S_TOKEN]
+    server.vm.provision "shell", path: "scripts/script.sh", args: ["server", SERVER_IP, K3S_TOKEN]
   end
 
   config.vm.define "ijaberSW" do |worker|
@@ -35,7 +35,7 @@ Vagrant.configure("2") do |config|
     end
 
     # Appel du script externe pour l'agent
-    worker.vm.provision "shell", path: "scritps/script.sh", args: ["agent", SERVER_IP, K3S_TOKEN]
+    worker.vm.provision "shell", path: "scripts/script.sh", args: ["agent", SERVER_IP, K3S_TOKEN]
   end
 
 end
