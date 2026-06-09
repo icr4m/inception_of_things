@@ -24,6 +24,10 @@ files:
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-helmchart.yaml
     nodeFilters:
       - "server:*"
+  - source: ./k8s/argocd/argocd-minio.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-minio.yaml
+    nodeFilters:
+      - "server:*"
   - source: ./k8s/argocd/argocd-namespace.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-namespace.yaml
     nodeFilters:
@@ -38,6 +42,10 @@ files:
       - "server:*"
   - source: ./k8s/argocd/argocd-service.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-service.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/minio/minio-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/minio/minio-secret.yaml
     nodeFilters:
       - "server:*"
   - source: ./k8s/postgres/postgres-secret.yaml
