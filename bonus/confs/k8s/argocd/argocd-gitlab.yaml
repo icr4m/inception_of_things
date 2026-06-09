@@ -8,39 +8,71 @@ spec:
   source:
     repoURL: https://charts.gitlab.io/
     chart: gitlab
-    targetRevision: "*"
+    targetRevision: "10.0.1"
     helm:
       values: |
         global:
+          edition: ce
+
           hosts:
-            domain: example.com
+            domain: gitlab.example.com
+            https: false
+
           ingress:
             configureCertmanager: false
+
           psql:
-            host: postgres.example.com
+            host: postgres-service.postgres.svc.cluster.local
             port: 5432
             database: gitlabhq_production
             username: gitlab
             password:
               secret: postgres-auth
               key: user-password
+
           redis:
-            host: redis.example.com
+            host: redis-service.redis.svc.cluster.local
             port: 6379
             auth:
               enabled: true
               secret: redis-auth
               key: redis-password
-          object_store:
-            enabled: true
-            proxy_download: true
-            connection:
-              secret: gitlab-object-storage
-              key: connection
+
+          minio:
+            enabled: false
+
+          appConfig:
+            object_store:
+              enabled: true
+              proxy_download: true
+              connection:
+                secret: gitlab-minio-secret
+                key: connection
+
+        gitlab:
+          upgrade-check:
+            enabled: false
+          toolbox:
+            enabled: false
+          webservice:
+            replicaCount: 1
+            resources:
+              requests:
+                cpu: 300m
+                memory: 1.5Gi
+          sidekiq:
+            replicaCount: 1
+          gitaly:
+            persistence:
+              size: 5Gi
+
         certmanager:
           enabled: false
         certmanager-issuer:
           email: admin@example.com
+
+        registry:
+          enabled: false
         prometheus:
           enabled: false
         gitlab-runner:

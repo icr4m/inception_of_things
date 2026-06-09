@@ -44,6 +44,10 @@ files:
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-service.yaml
     nodeFilters:
       - "server:*"
+  - source: ./k8s/gitlab/gitlab-minio-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/gitlab/gitlab-minio-secret.yaml
+    nodeFilters:
+      - "server:*"
   - source: ./k8s/minio/minio-secret.yaml
     destination: /var/lib/rancher/k3s/server/manifests/minio/minio-secret.yaml
     nodeFilters:
