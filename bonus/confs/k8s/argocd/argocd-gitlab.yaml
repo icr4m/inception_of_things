@@ -18,12 +18,19 @@ spec:
             domain: gitlab.example.com
             https: false
 
-          ingress:
+          gatewayApi:
+            enabled: false
+            installEnvoy: false
             configureCertmanager: false
-            provider: none
+
+          ingress:
+            enabled: true
+            configureCertmanager: false
+            tls:
+              enabled: false
 
           psql:
-            host: postgres-service.postgres.svc.cluster.local
+            host: postgres-postgresql.gitlab.svc.cluster.local
             port: 5432
             database: gitlabhq_production
             username: gitlab
@@ -32,7 +39,7 @@ spec:
               key: user-password
 
           redis:
-            host: redis-service.redis.svc.cluster.local
+            host: redis-master.gitlab.svc.cluster.local
             port: 6379
             auth:
               enabled: true
@@ -68,21 +75,18 @@ spec:
         upgradeCheck:
           enabled: false
 
-        certmanager:
-          enabled: false
+        installCertmanager: false
         certmanager-issuer:
           email: admin@example.com
 
         registry:
           enabled: false
         prometheus:
-          enabled: false
+          install: false
         gitlab-runner:
-          enabled: false
+          install: false
         nginx-ingress:
-          enabled: false
-        envoy-gateway:
-          enabled: false
+          enabled: true
   destination:
     server: https://kubernetes.default.svc
     namespace: gitlab
