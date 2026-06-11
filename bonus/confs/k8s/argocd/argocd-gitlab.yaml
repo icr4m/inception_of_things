@@ -20,6 +20,7 @@ spec:
 
           ingress:
             configureCertmanager: false
+            provider: none
 
           psql:
             host: postgres-service.postgres.svc.cluster.local
@@ -50,8 +51,6 @@ spec:
                 key: connection
 
         gitlab:
-          upgrade-check:
-            enabled: false
           toolbox:
             enabled: false
           webservice:
@@ -66,6 +65,9 @@ spec:
             persistence:
               size: 5Gi
 
+        upgradeCheck:
+          enabled: false
+
         certmanager:
           enabled: false
         certmanager-issuer:
@@ -76,6 +78,10 @@ spec:
         prometheus:
           enabled: false
         gitlab-runner:
+          enabled: false
+        nginx-ingress:
+          enabled: false
+        envoy-gateway:
           enabled: false
   destination:
     server: https://kubernetes.default.svc
