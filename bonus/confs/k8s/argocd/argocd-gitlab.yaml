@@ -15,7 +15,7 @@ spec:
           edition: ce
 
           hosts:
-            domain: gitlab.example.com
+            domain: bonus.com
             https: false
 
           gatewayApi:

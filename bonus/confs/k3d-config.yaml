@@ -11,11 +11,10 @@ ports:
   - port: 8081:8081
     nodeFilters:
       - loadbalancer
-files:
-  - source: ./k8s/argocd/argocd-app.yaml
-    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-app.yaml
+  - port: 80:80
     nodeFilters:
-      - "server:*"
+      - loadbalancer
+files:
   - source: ./k8s/argocd/argocd-gitlab.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-gitlab.yaml
     nodeFilters:
