@@ -21,6 +21,37 @@ spec:
             memory: 1Gi
         persistence:
           size: 5Gi
+        buckets:
+          - name: gitlab-uploads
+            policy: none
+            purge: false
+          - name: gitlab-artifacts
+            policy: none
+            purge: false
+          - name: gitlab-lfs
+            policy: none
+            purge: false
+          - name: gitlab-packages
+            policy: none
+            purge: false
+          - name: gitlab-mr-diffs
+            policy: none
+            purge: false
+          - name: gitlab-terraform-state
+            policy: none
+            purge: false
+          - name: gitlab-dependency-proxy
+            policy: none
+            purge: false
+          - name: gitlab-pages
+            policy: none
+            purge: false
+          - name: gitlab-backups
+            policy: none
+            purge: false
+          - name: gitlab-ci-secure-files
+            policy: none
+            purge: false
   destination:
     server: https://kubernetes.default.svc
     namespace: gitlab
