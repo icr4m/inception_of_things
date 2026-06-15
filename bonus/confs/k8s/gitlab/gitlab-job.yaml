@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gitlab-setup
+  namespace: gitlab
+spec:
+  template:
+    spec:
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+      containers:
+      - name: setup
+        image: bitnami/kubectl:latest
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          install_packages curl jq
+          /scripts/setup-repo.sh
+        env:
+          - name: ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-gitlab-initial-root-password
+                key: password
+        volumeMounts:
+        - name: scripts
+          mountPath: /scripts
+        - name: manifests
+          mountPath: /manifests
+      volumes:
+      - name: scripts
+        hostPath:
+          path: /app/scripts
+      - name: manifests
+        hostPath:
+          path: /app/confs/k8s
+      restartPolicy: OnFailure

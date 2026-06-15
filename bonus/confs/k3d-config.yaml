@@ -15,6 +15,10 @@ ports:
     nodeFilters:
       - loadbalancer
 files:
+  - source: ./k8s/argocd/argocd-app.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-app.yaml
+    nodeFilters:
+      - "server:*"
   - source: ./k8s/argocd/argocd-gitlab.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-gitlab.yaml
     nodeFilters:
@@ -41,6 +45,10 @@ files:
       - "server:*"
   - source: ./k8s/argocd/argocd-service.yaml
     destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-service.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/gitlab/gitlab-job.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/gitlab/gitlab-job.yaml
     nodeFilters:
       - "server:*"
   - source: ./k8s/gitlab/gitlab-minio-secret.yaml

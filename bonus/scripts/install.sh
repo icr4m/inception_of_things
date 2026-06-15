@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # 1. Install Docker
 
 ## Detect OS

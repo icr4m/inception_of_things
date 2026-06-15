@@ -9,7 +9,7 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: https://github.com/Anicet78/agruet_IoT
+    repoURL: http://gitlab.gitlab.svc.cluster.local/root/iot
     targetRevision: main
     path: bonus/confs/k8s/app
   syncPolicy:
