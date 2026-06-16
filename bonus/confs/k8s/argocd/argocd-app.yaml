@@ -9,8 +9,8 @@ spec:
     server: https://kubernetes.default.svc
   project: default
   source:
-    repoURL: http://gitlab.gitlab.svc.cluster.local/root/iot
-    targetRevision: main
+    repoURL: http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/root/iot.git
+    targetRevision: bonus
     path: bonus/confs/k8s/app
   syncPolicy:
     syncOptions:
