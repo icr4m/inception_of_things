@@ -1,0 +1,63 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: minio
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.min.io/
+    chart: minio
+    targetRevision: "5.4.0"
+    helm:
+      values: |
+        existingSecret: minio-auth
+        mode: standalone
+        replicas: 1
+        resources:
+          requests:
+            memory: 512Mi
+          limits:
+            memory: 1Gi
+        persistence:
+          size: 5Gi
+        buckets:
+          - name: gitlab-uploads
+            policy: none
+            purge: false
+          - name: gitlab-artifacts
+            policy: none
+            purge: false
+          - name: gitlab-lfs
+            policy: none
+            purge: false
+          - name: gitlab-packages
+            policy: none
+            purge: false
+          - name: gitlab-mr-diffs
+            policy: none
+            purge: false
+          - name: gitlab-terraform-state
+            policy: none
+            purge: false
+          - name: gitlab-dependency-proxy
+            policy: none
+            purge: false
+          - name: gitlab-pages
+            policy: none
+            purge: false
+          - name: gitlab-backups
+            policy: none
+            purge: false
+          - name: gitlab-ci-secure-files
+            policy: none
+            purge: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitlab
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

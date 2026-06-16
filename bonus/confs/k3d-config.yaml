@@ -1,0 +1,73 @@
+apiVersion: k3d.io/v1alpha5
+kind: Simple
+metadata:
+  name: cluster-bonus
+servers: 1
+agents: 1
+ports:
+  - port: 8888:30080
+    nodeFilters:
+      - loadbalancer
+  - port: 8081:8081
+    nodeFilters:
+      - loadbalancer
+  - port: 80:80
+    nodeFilters:
+      - loadbalancer
+files:
+  - source: ./k8s/argocd/argocd-app.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-app.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-gitlab.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-gitlab.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-helmchart.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-helmchart.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-minio.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-minio.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-namespace.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-namespace.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-postgres.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-postgres.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-redis.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-redis.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/argocd/argocd-service.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/argocd/argocd-service.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/gitlab/gitlab-minio-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/gitlab/gitlab-minio-secret.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/minio/minio-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/minio/minio-secret.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/postgres/postgres-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/postgres/postgres-secret.yaml
+    nodeFilters:
+      - "server:*"
+  - source: ./k8s/redis/redis-secret.yaml
+    destination: /var/lib/rancher/k3s/server/manifests/redis/redis-secret.yaml
+    nodeFilters:
+      - "server:*"
+options:
+  k3d:
+    wait: true
+  k3s:
+    extraArgs:
+      - arg: "--disable=traefik"
+        nodeFilters:
+          - "server:*"

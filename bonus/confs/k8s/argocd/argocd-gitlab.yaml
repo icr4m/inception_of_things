@@ -1,0 +1,98 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gitlab
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://charts.gitlab.io/
+    chart: gitlab
+    targetRevision: "10.0.1"
+    helm:
+      values: |
+        global:
+          edition: ce
+
+          hosts:
+            domain: bonus.com
+            https: false
+
+          gatewayApi:
+            enabled: false
+            installEnvoy: false
+            configureCertmanager: false
+
+          ingress:
+            enabled: true
+            configureCertmanager: false
+            tls:
+              enabled: false
+
+          psql:
+            host: postgres-postgresql.gitlab.svc.cluster.local
+            port: 5432
+            database: gitlabhq_production
+            username: gitlab
+            password:
+              secret: postgres-auth
+              key: user-password
+
+          redis:
+            host: redis-master.gitlab.svc.cluster.local
+            port: 6379
+            auth:
+              enabled: true
+              secret: redis-auth
+              key: redis-password
+
+          minio:
+            enabled: false
+
+          appConfig:
+            object_store:
+              enabled: true
+              proxy_download: true
+              connection:
+                secret: gitlab-minio-secret
+                key: connection
+
+        gitlab:
+          toolbox:
+            enabled: false
+          webservice:
+            replicaCount: 1
+            resources:
+              requests:
+                cpu: 300m
+                memory: 1.5Gi
+          sidekiq:
+            replicaCount: 1
+          gitaly:
+            persistence:
+              size: 5Gi
+
+        upgradeCheck:
+          enabled: false
+
+        installCertmanager: false
+        certmanager-issuer:
+          email: admin@example.com
+
+        registry:
+          enabled: false
+        prometheus:
+          install: false
+        gitlab-runner:
+          install: false
+        nginx-ingress:
+          enabled: true
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: gitlab
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
