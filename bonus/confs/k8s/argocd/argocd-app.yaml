@@ -10,7 +10,7 @@ spec:
   project: default
   source:
     repoURL: http://gitlab-webservice-default.gitlab.svc.cluster.local:8181/root/iot.git
-    targetRevision: bonus
+    targetRevision: main
     path: bonus/confs/k8s/app
   syncPolicy:
     syncOptions:
