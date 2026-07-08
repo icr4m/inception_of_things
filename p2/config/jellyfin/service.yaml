@@ -10,9 +10,8 @@ spec:
     - name: udp
       port: 7359
       targetPort: 7359
-      nodePort: 3000
     - name: tcp
-      port: 8096
+      port: 80
       targetPort: 8096
-      nodePort: 30001
+
 
