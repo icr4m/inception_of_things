@@ -20,9 +20,8 @@ Vagrant.configure("2") do |config|
   config.vm.box_check_update = false
 
   # /!\ NECESSAIRE SUR VM DANS UNE VM (question d'instructions processeur)
-  config.vm.provider 'libvirt' do |libvirt|
-    libvirt.cpu_mode = "custom"
-    libvirt.cpu_model = "qemu64"
+  config.vm.provider 'virtualbox' do |libvirt|
+    libvirt.memory = 2048
   end
 
   config.vm.network "private_network", ip: "192.168.56.110"
@@ -31,14 +30,14 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "file",
     source: "../",
-    destination: "/tmp/"
+    destination: "/home/vagrant"
   config.vm.provision "shell", inline: <<-SHELL
     apt update
     yes | apt install curl
     echo ">>> [bzaidiS] Installation de k3s"
     curl -sfL https://get.k3s.io | sh -
     echo ">>> [bzaidiS] Lancement des pods"
-    #cd /tmp/p2/scripts
-    #sh start.sh
+    cd /home/vagrant/scripts
+    sh start.sh
   SHELL
 end
